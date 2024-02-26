@@ -32,6 +32,10 @@ const handleRegexMatch = (_, first, middle, last) => scrambleWord(first, middle,
  * @returns {string} The word with the middle portion scrambled.
  */
 const scrambleWord = (first, middle, last) => {
+  if (typeof middle !== 'string') {
+    throw new TypeError('Expected a string');
+  }
+
   const randomMiddle = middle.split('').sort(randomSort).join('');
 
   return `${first}${randomMiddle}${last}`;
@@ -42,7 +46,14 @@ const scrambleWord = (first, middle, last) => {
  * @param {string} s - The input string.
  * @returns {string} - The string with the middle characters scrambled.
  */
-const scrambleMiddle = (input) => input.replace(WORD_MATCH_REGEX, handleRegexMatch);
+
+const scrambleMiddle = (input) => {
+  if (typeof input !== 'string') {
+    throw new TypeError('Expected a string');
+  }
+
+  return input.replace(WORD_MATCH_REGEX, handleRegexMatch);
+}
 
 module.exports = {
   WORD_MATCH_REGEX,
